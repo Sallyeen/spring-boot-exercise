@@ -7,7 +7,7 @@ services:
     restart: always
     volumes:
       - ./data:/var/lib/mysql
-      - ../sql:/data/sql
+      - ./sql:/data/sql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: test

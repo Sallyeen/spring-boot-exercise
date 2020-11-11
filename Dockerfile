@@ -2,7 +2,7 @@ FROM openjdk:8
 
 WORKDIR /app
 
-ADD ../target/spring-boot-exercise.jar /app
+ADD target/spring-boot-exercise.jar /app
 
 EXPOSE 8080
 
