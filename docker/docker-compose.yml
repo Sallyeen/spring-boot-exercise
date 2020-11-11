@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  worker:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password --init-file /data/sql/user.sql
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+      - ../sql:/data/sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: test
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: test
+    ports:
+      - 13306:3306
