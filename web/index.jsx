@@ -223,7 +223,8 @@ const ListBlock = () => {
 
     return (
         <div style={{...ContentBlock, width: 1000}}>
-            <h3>用户列表 <span onClick={getPage}>Sync</span></h3>
+            <h3>用户列表</h3>
+            <h4>总用户：{total} <Button onClick={() => getPage()} size="small" style={{marginLeft: 10}}>Sync</Button></h4>
             <Table dataSource={users} columns={columns} rowKey='id' pagination={false}/>
             <Pagination current={pageNo + 1}
                         total={total}
