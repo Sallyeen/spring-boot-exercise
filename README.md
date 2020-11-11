@@ -11,7 +11,7 @@
 
 ### description
 - 使用spring-boot和mybatis实现一个rest服务
-- 包括添加user POST，根据id查询用户GET，根据id删除用户DELETE，根据id更新用户PUT
+- 包括添加user POST，根据id查询用户GET，根据id删除用户DELETE，根据id更新用户PUT，分页查询用户列表
 - 将代码托管到https://git.woda.com
 
 ### deadline
