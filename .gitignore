@@ -2,3 +2,6 @@
 *.iml
 data/
 target/
+node_modules/
+yarn.lock
+build/

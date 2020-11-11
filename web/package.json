@@ -1,0 +1,25 @@
+{
+  "name": "result",
+  "version": "1.0.0",
+  "main": "main.jsx",
+  "author": "shanhaosheng@meideng.net",
+  "license": "MIT",
+  "dependencies": {
+    "antd": "^4.7.3",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.50",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "babel-loader": "^8.2.1",
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  }
+}

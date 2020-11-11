@@ -16,3 +16,19 @@
 
 ### deadline
 - 2020.11.16
+
+-----
+
+## Docker-compose
+
+### build image
+
+```bash
+mvn clean package # compile java
+cd web && yarn && yarn build && cd .. # compile frontend
+docker-compose up --build # build & start docker-compose
+```
+
+### test
+
+- 浏览器打开 http://localhost:8888

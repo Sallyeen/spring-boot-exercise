@@ -18,5 +18,8 @@ services:
   backend:
     build: ./
     image: spring-boot-exercise:build
+  nginx:
+    build: ./web
+    image: spring-boot-exercise-web:build
     ports:
-      - 8888:8080
+      - 8888:8888
