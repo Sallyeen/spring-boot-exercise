@@ -22,16 +22,22 @@ const ContentBlock = {
     flexDirection: 'column',
 };
 
-const Field = ({label, field, user, setUser, children}) => {
+const Field = ({label, field, password, user, setUser, children}) => {
     return (
         <div style={{display: 'flex', alignItems: 'center', marginBottom: 20}} key={label}>
             <span style={{marginRight: 20, width: 42, flexShrink: 0}}>{label}</span>
             {
-                children ||
-                <Input value={user[field] || ''}
-                       onChange={e => {
-                           setUser({...user, [field]: e.target.value});
-                       }}/>
+                children || (
+                    password ?
+                        <Input.Password value={user[field] || ''}
+                                        onChange={e => {
+                                            setUser({...user, [field]: e.target.value});
+                                        }}/> :
+                        <Input value={user[field] || ''}
+                               onChange={e => {
+                                   setUser({...user, [field]: e.target.value});
+                               }}/>
+                )
             }
         </div>
     );
@@ -68,7 +74,7 @@ const CreateBlock = () => {
         <div style={ContentBlock}>
             <h3>新建用户</h3>
             <Field label='用户名' field='username' user={user} setUser={setUser}/>
-            <Field label='密码' field='password' user={user} setUser={setUser}/>
+            <Field label='密码' password field='password' user={user} setUser={setUser}/>
             <Field label='性别' field='gender'>
                 <Radio.Group onChange={e => setUser({...user, gender: e.target.value})} value={user?.gender}>
                     <Radio value={0}>Male</Radio>
@@ -152,7 +158,7 @@ const QueryBlock = () => {
                 <Button style={{marginLeft: 20}} onClick={onSearch}>查询</Button>
             </Field>
             <Field label='用户名' field='username' user={user} setUser={setUser}/>
-            <Field label='密码' field='password' user={user} setUser={setUser}/>
+            <Field label='密码' password field='password' user={user} setUser={setUser}/>
             <Field label='性别' field='gender'>
                 <Radio.Group onChange={e => setUser({...user, gender: e.target.value})} value={user?.gender}>
                     <Radio value={0}>Male</Radio>
