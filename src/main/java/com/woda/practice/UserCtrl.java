@@ -27,7 +27,7 @@ public class UserCtrl {
 
     @GetMapping("/count")
     public long count() {
-        // Should be userMapper.count()
+        userMapper.count();
         return 100;
     }
 
