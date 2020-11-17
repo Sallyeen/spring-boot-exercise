@@ -25,7 +25,7 @@
 
 ```bash
 mvn clean package # compile java
-cd web && yarn && yarn build && cd .. # compile frontend
+cd web && yarn && y arn build && cd .. # compile frontend
 docker-compose up --build # build & start docker-compose
 ```
 

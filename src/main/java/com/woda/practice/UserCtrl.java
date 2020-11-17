@@ -25,49 +25,61 @@ public class UserCtrl {
     @Autowired
     private UserMapper userMapper;
 
+    /*get-查询数据条数*/
     @GetMapping("/count")
     public long count() {
-        userMapper.count();
-        return 100;
+        return userMapper.count();
     }
 
+    /*post-新增*/
     @PostMapping("/create")
     public UserModel create(@RequestBody UserModel user) {
-        // code here
-        // create user from request body and return the user with generated id
-        return fakeUser(new SecureRandom().nextLong());
+        return userMapper.create(user);
     }
 
+    /*get-查询（通过id查询用户数据）*/
     @GetMapping("/get")
     public UserModel get(@RequestParam(defaultValue = "0") long id) {
-        // code here
-        // get user by id from query parameter or null
-        return fakeUser(id);
+        return userMapper.get(id);
     }
+//        UserModel userModel = userMapper.get(id);
+//        if (userModel == null){
+//           return "user not found";
+//        }
+//        else {
+//            return userMapper.get(id);
+//        }
+
 
     @GetMapping("/list")
     public List<UserModel> list(@RequestParam(defaultValue = "10") int pageSize,
                                 @RequestParam(defaultValue = "0") int pageNo) {
+        int begin = pageNo * pageSize;
+        return userMapper.list(begin, pageSize);
+    }
+
         // code here
         // get user list, pagination
-        return LongStream.range((long) pageSize * pageNo, (long) pageSize * (pageNo + 1))
+/*        return LongStream.range((long) pageSize * pageNo, (long) pageSize * (pageNo + 1))
                 .mapToObj(UserCtrl::fakeUser)
-                .collect(Collectors.toList());
-    }
+                .collect(Collectors.toList());*/
+
 
     @DeleteMapping("/delete")
     public String delete(@RequestParam(defaultValue = "0") long id) {
-        // code here
-        // delete user by ud from query parameter
-        // return "deleted" or "user not found" depend on the deletion result
-        return "user not found";
+        UserModel userModel = userMapper.get(id);
+        if (userModel == null){
+            return "user not found";
+        }
+        else {
+            userMapper.delete(id);
+            return "deleted";
+        }
     }
 
     @PutMapping("/update")
     public UserModel update(@RequestParam(defaultValue = "0") long id, @RequestBody UserModel user) {
-        // code here
-        // update user from request body and return the user updated
-        return fakeUser(id);
+        return userMapper.update(user);
     }
 
     private static UserModel fakeUser(long id) {
