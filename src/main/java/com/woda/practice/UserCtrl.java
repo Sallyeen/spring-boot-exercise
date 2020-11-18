@@ -31,40 +31,40 @@ public class UserCtrl {
         return userMapper.count();
     }
 
-    /*post-新增*/
+    /*post-新增 & ！！返回自增id*/
+    // create user from request body and return the user with generated id
     @PostMapping("/create")
     public UserModel create(@RequestBody UserModel user) {
-        return userMapper.create(user);
+        userMapper.create(user);
+        return user;
     }
 
-    /*get-查询（通过id查询用户数据）*/
+    /*get-查询（通过id查询用户数据） &！！如果id查不到，返回空*/
+    // get user by id from query parameter or null
     @GetMapping("/get")
     public UserModel get(@RequestParam(defaultValue = "0") long id) {
-        return userMapper.get(id);
+        UserModel userModel = userMapper.get(id);
+        if (userModel == null) {
+            return new UserModel();
+        } else {
+            return userMapper.get(id);
+        }
     }
-//        UserModel userModel = userMapper.get(id);
-//        if (userModel == null){
-//           return "user not found";
-//        }
-//        else {
-//            return userMapper.get(id);
-//        }
 
 
+    // get user list, pagination
     @GetMapping("/list")
     public List<UserModel> list(@RequestParam(defaultValue = "10") int pageSize,
                                 @RequestParam(defaultValue = "0") int pageNo) {
         int begin = pageNo * pageSize;
         return userMapper.list(begin, pageSize);
     }
-
-        // code here
-        // get user list, pagination
-/*        return LongStream.range((long) pageSize * pageNo, (long) pageSize * (pageNo + 1))
+    /*  return LongStream.range((long) pageSize * pageNo, (long) pageSize * (pageNo + 1))
                 .mapToObj(UserCtrl::fakeUser)
                 .collect(Collectors.toList());*/
 
-
+    // delete user by ud from query parameter
+    // return "deleted" or "user not found" depend on the deletion result
     @DeleteMapping("/delete")
     public String delete(@RequestParam(defaultValue = "0") long id) {
         UserModel userModel = userMapper.get(id);
@@ -77,11 +77,13 @@ public class UserCtrl {
         }
     }
 
+    // update user from request body and return the user updated
     @PutMapping("/update")
     public UserModel update(@RequestParam(defaultValue = "0") long id, @RequestBody UserModel user) {
-        return userMapper.update(user);
+        userMapper.update(user);
+        return user;
     }
-
+/*
     private static UserModel fakeUser(long id) {
         String chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+{}[]:;'?><,.";
         UserModel user = new UserModel();
@@ -94,7 +96,6 @@ public class UserCtrl {
         user.setEmail(String.format("%d@woda.com", id));
         user.setGender((short) (id % 2));
         return user;
-    }
-
+    }*/
 
 }
