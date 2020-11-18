@@ -25,13 +25,11 @@ public class UserCtrl {
     @Autowired
     private UserMapper userMapper;
 
-    /*get-查询数据条数*/
     @GetMapping("/count")
     public long count() {
         return userMapper.count();
     }
 
-    /*post-新增 & ！！返回自增id*/
     // create user from request body and return the user with generated id
     @PostMapping("/create")
     public UserModel create(@RequestBody UserModel user) {
@@ -39,16 +37,11 @@ public class UserCtrl {
         return user;
     }
 
-    /*get-查询（通过id查询用户数据） &！！如果id查不到，返回空*/
+
     // get user by id from query parameter or null
     @GetMapping("/get")
     public UserModel get(@RequestParam(defaultValue = "0") long id) {
-        UserModel userModel = userMapper.get(id);
-        if (userModel == null) {
-            return new UserModel();
-        } else {
-            return userMapper.get(id);
-        }
+        return userMapper.get(id);
     }
 
 
@@ -59,21 +52,17 @@ public class UserCtrl {
         int begin = pageNo * pageSize;
         return userMapper.list(begin, pageSize);
     }
-    /*  return LongStream.range((long) pageSize * pageNo, (long) pageSize * (pageNo + 1))
-                .mapToObj(UserCtrl::fakeUser)
-                .collect(Collectors.toList());*/
+
 
     // delete user by ud from query parameter
     // return "deleted" or "user not found" depend on the deletion result
     @DeleteMapping("/delete")
     public String delete(@RequestParam(defaultValue = "0") long id) {
-        UserModel userModel = userMapper.get(id);
-        if (userModel == null){
-            return "user not found";
-        }
-        else {
-            userMapper.delete(id);
+        long a = userMapper.delete(id);
+        if (a > 0) {
             return "deleted";
+        } else {
+            return "user not found";
         }
     }
 
@@ -83,19 +72,4 @@ public class UserCtrl {
         userMapper.update(user);
         return user;
     }
-/*
-    private static UserModel fakeUser(long id) {
-        String chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+{}[]:;'?><,.";
-        UserModel user = new UserModel();
-        user.setId(id);
-        user.setUsername(String.valueOf(id));
-        user.setPassword(
-                IntStream.range(0, 8)
-                        .mapToObj(i -> String.valueOf(chars.charAt(new SecureRandom().nextInt(chars.length()))))
-                        .collect(Collectors.joining("")));
-        user.setEmail(String.format("%d@woda.com", id));
-        user.setGender((short) (id % 2));
-        return user;
-    }*/
-
 }
