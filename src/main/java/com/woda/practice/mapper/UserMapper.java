@@ -1,18 +1,16 @@
 package com.woda.practice.mapper;
 
 import com.woda.practice.model.UserModel;
+import javafx.beans.value.ObservableBooleanValue;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 public interface UserMapper {
-
 
     @Select("SELECT COUNT(1) FROM `users`")
     long count();
@@ -20,7 +18,7 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("INSERT INTO `users` (`username`, `password`, `gender`, `avatar`, `email`)" +
             "VALUES (#{username}, #{password}, #{gender}, #{avatar}, #{email})")
-    void create(UserModel user);
+    UserModel create(UserModel user);
 
 
     @Select("SELECT * FROM `users` WHERE `id`=#{id}")

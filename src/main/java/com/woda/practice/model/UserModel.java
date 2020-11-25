@@ -8,6 +8,9 @@ public class UserModel {
     private String avatar;
     private String email;
 
+    public UserModel() {
+    }
+
     public long getId() {
         return id;
     }
@@ -20,9 +23,7 @@ public class UserModel {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setUsername(String username) { this.username = username; }
 
     public String getPassword() {
         return password;
