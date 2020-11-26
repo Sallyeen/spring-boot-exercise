@@ -1,5 +1,7 @@
 package com.woda.practice.model;
 
+import java.util.Objects;
+
 public class UserModel {
     private long id;
     private String username;
@@ -55,6 +57,19 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserModel userModel = (UserModel) o;
+        return id == userModel.id &&
+                gender == userModel.gender &&
+                username.equals(userModel.username) &&
+                password.equals(userModel.password) &&
+                avatar.equals(userModel.avatar) &&
+                email.equals(userModel.email);
     }
 
 }

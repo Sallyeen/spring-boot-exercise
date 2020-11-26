@@ -12,11 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.SecureRandom;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -30,22 +26,17 @@ public class UserCtrl {
         return userMapper.count();
     }
 
-    // create user from request body and return the user with generated id
     @PostMapping("/create")
     public UserModel create(@RequestBody UserModel user) {
         userMapper.create(user);
         return user;
     }
 
-
-    // get user by id from query parameter or null
     @GetMapping("/get")
     public UserModel get(@RequestParam(defaultValue = "0") long id) {
         return userMapper.get(id);
     }
 
-
-    // get user list, pagination
     @GetMapping("/list")
     public List<UserModel> list(@RequestParam(defaultValue = "10") int pageSize,
                                 @RequestParam(defaultValue = "0") int pageNo) {
@@ -53,9 +44,6 @@ public class UserCtrl {
         return userMapper.list(begin, pageSize);
     }
 
-
-    // delete user by ud from query parameter
-    // return "deleted" or "user not found" depend on the deletion result
     @DeleteMapping("/delete")
     public String delete(@RequestParam(defaultValue = "0") long id) {
         long a = userMapper.delete(id);
@@ -66,7 +54,6 @@ public class UserCtrl {
         }
     }
 
-    // update user from request body and return the user updated
     @PutMapping("/update")
     public UserModel update(@RequestParam(defaultValue = "0") long id, @RequestBody UserModel user) {
         userMapper.update(user);

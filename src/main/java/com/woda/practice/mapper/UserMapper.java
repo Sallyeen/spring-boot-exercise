@@ -1,7 +1,6 @@
 package com.woda.practice.mapper;
 
 import com.woda.practice.model.UserModel;
-import javafx.beans.value.ObservableBooleanValue;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Insert;
@@ -18,8 +17,7 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("INSERT INTO `users` (`username`, `password`, `gender`, `avatar`, `email`)" +
             "VALUES (#{username}, #{password}, #{gender}, #{avatar}, #{email})")
-    UserModel create(UserModel user);
-
+    void create(UserModel user);
 
     @Select("SELECT * FROM `users` WHERE `id`=#{id}")
     UserModel get(long id);
